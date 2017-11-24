@@ -1,0 +1,78 @@
+ext {
+
+    android = [
+            compileSdkVersion: 26,
+            buildToolsVersion: "26.0.2",
+            minSdkVersion    : 15,
+            targetSdkVersion : 26,
+            versionCode      : 1,
+            versionName      : "1.0",
+            abiFilters       : "armeabi   armeabi-v7a"
+    ]
+    version = [
+
+            junit            : "4.12",
+            support          : "26.0.0",
+            fresco           : "1.3.0",
+            kotlin           : "1.1.51",
+            kotlin_anko      : "0.10.1",
+            rxjava           : "2.1.1",
+            rxkotlin         : "2.1.0",
+            rxandroid        : "2.0.1",
+            eventbus         : "3.0.0",
+            fastjson         : "1.1.59.android",
+            gson             : "2.8.1",
+            okio             : "1.13.0",
+            okhttp           : "3.8.1",
+            retrofit         : "2.3.0",
+            retrofit_fastjson: "2.1.0",
+            stetho           : "1.5.0",
+            constraint_layout: "1.1.0-beta3",
+            glide            : "4.1.1",
+            rxlifecycle      : "2.1.0",
+            zxing            : "3.3.0",
+            easypermissions  : "1.0.0",
+    ]
+    dependencies = [
+            appcompat_v7          : "com.android.support:appcompat-v7:${version.support}",
+            support_v4            : "com.android.support:support-v4:${version.support}",
+            support_design        : "com.android.support:design:${version.support}",
+            support_core_utils    : "com.android.support:support-core-utils:${version.support}",
+            cardview              : "com.android.support:cardview-v7:${version.support}",
+            constraint_layout     : "com.android.support.constraint:constraint-layout:${version.constraint_layout}",
+            android_beacon_library: "org.altbeacon:android-beacon-library:2.11",
+            kotlin_stdlib_jre7    : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${version.kotlin}",
+            kotlin_stdlib_jre8    : "org.jetbrains.kotlin:kotlin-stdlib-jre8:${version.kotlin}",
+            kotlin_anko           : "org.jetbrains.anko:anko:${version.kotlin_anko}",
+            junit                 : "junit:junit:${version.junit}",
+            rxjava                : "io.reactivex.rxjava2:rxjava:${version.rxjava}",
+            rxandroid             : "io.reactivex.rxjava2:rxandroid:${version.rxandroid}",
+            rxkotlin              : "io.reactivex.rxjava2:rxkotlin:${version.rxkotlin}",
+            eventbus              : "org.greenrobot:eventbus:${version.eventbus}",
+            fresco                : "com.facebook.fresco:fresco:${version.fresco}",
+            fresco_gif            : "com.facebook.fresco:animated-gif:${version.fresco}",// 支持 GIF 动图，需要添加
+            fresco_webp           : "com.facebook.fresco:webpsupport:${version.fresco}",    // 支持 WebP 静态图，需要添加
+            fresco_animated_webp  : "com.facebook.fresco:animated-webp:${version.fresco}", // 支持 WebP 动态图，需要添加
+            fresco_animated_base  : "com.facebook.fresco:animated-base-support:${version.fresco}",    // 在 API < 14 上的机器支持 WebP 时，需要添加
+            fastjson              : "com.alibaba:fastjson:${version.fastjson}",
+            gson                  : "com.google.code.gson:gson:${version.gson}",
+            okio                  : "com.squareup.okio:okio:${version.okio}",
+            okhttp                : "com.squareup.okhttp3:okhttp:${version.okhttp}",
+            okhttp_log            : "com.squareup.okhttp3:logging-interceptor:${version.okhttp}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${version.retrofit}",
+            retrofit_rxjava       : "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit}",
+            retrofit_fastjson     : "org.ligboy.retrofit2:converter-fastjson-android:${version.retrofit_fastjson}",
+            retrofit_gson         : "com.squareup.retrofit2:converter-gson:${version.retrofit}",
+            stetho                : "com.facebook.stetho:stetho:${version.stetho}",
+            stetho_okhttp         : "com.facebook.stetho:stetho-okhttp3:${version.stetho}",
+            glide                 : "com.github.bumptech.glide:glide:${version.glide}",
+            glide_compiler        : "com.github.bumptech.glide:compiler:${version.glide}",
+            glide_okhttp3         : "com.github.bumptech.glide:okhttp3-integration:${version.glide}",
+            rxlifecycle           : "com.trello.rxlifecycle2:rxlifecycle:${version.rxlifecycle}",
+            rxlifecycle_components: "com.trello.rxlifecycle2:rxlifecycle-components:${version.rxlifecycle}",
+            rxlifecycle_kotlin    : "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:${version.rxlifecycle}",
+            zxing                 : "com.google.zxing:core:${version.zxing}",
+            easypermissions       : "pub.devrel:easypermissions:${version.easypermissions}",
+
+    ]
+}
