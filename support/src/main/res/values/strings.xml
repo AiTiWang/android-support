@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidSupport</string>
+    <string name="support_loading_dialog_msg">玩命加载中</string>
 </resources>
