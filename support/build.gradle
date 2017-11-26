@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.i4evercai'
 /*apply plugin: 'com.novoda.bintray-release'*/
 
 android {
@@ -60,31 +61,43 @@ kotlin {
     }
 }
 
+/*
 buildscript {
     ext.kotlin_version = '1.1.51'
     ext.dokka_version = '0.9.7'
     repositories {
         maven { url "https://dl.google.com/dl/android/maven2/" }
         jcenter()
-      /*  mavenCentral()
-        jcenter()*/
+      */
+/*  mavenCentral()
+        jcenter()*//*
+
     }
 
     dependencies {
-        /**
+        */
+/**
          * for kotlin
-         */
+         *//*
+
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        /**
+        */
+/**
          * for jfrog
-         */
+         *//*
+
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        /**
+        */
+/**
          * Do not use 4+
-         */
+         *//*
+
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.2.0"
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
+*/
 
 apply from: 'kotlin-bintray.gradle'
