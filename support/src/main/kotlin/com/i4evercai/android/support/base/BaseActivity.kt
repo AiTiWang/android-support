@@ -38,13 +38,14 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     private var toast: Toast? = null
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog() };
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         application = getApplication() as BaseApplication
         application.onActivityCreated(wrActivity)
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
-        initViews()
+       // initViews()
     }
 
     override fun onStart() {
