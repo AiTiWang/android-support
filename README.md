@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-WTFPL%202.0-blue.svg)](http://www.wtfpl.net/)
 [![Blog](https://img.shields.io/badge/site-youquan.pro-9932CC.svg)](http://youquan.pro)
 
-android-support是针对于Android开发封装好一些常用的基类，主要包括通用的Adapter、Activity、Fragment、Dialog等、和一些常用的Util类，只为更简单。
+android-support是针对于Android开发封装好一些常用的基类，主要是开发过程中一些常用的工具类。
 ## 引入
    Gradle
    1. 在项目 build.gradle 添加 JitPack 仓库
