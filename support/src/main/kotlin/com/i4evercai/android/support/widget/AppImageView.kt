@@ -2,8 +2,8 @@ package com.i4evercai.android.support.widget
 
 import android.content.Context
 import android.support.annotation.DrawableRes
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 import com.i4evercai.android.support.R
 import com.i4evercai.android.support.imageLoader.ImageLoaderManager
 /**
@@ -14,7 +14,7 @@ import com.i4evercai.android.support.imageLoader.ImageLoaderManager
  * @date 2017/7/13 15:15
  * @version V1.0
  */
-open class AppImageView : ImageView {
+open class AppImageView : AppCompatImageView {
 
 
     constructor(context: Context) : super(context) {
@@ -29,9 +29,9 @@ open class AppImageView : ImageView {
 
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    /*constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
 
-    }
+    }*/
 
     /**
      * 加载图片
