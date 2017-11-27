@@ -5,7 +5,22 @@
 [![Blog](https://img.shields.io/badge/site-youquan.pro-9932CC.svg)](http://youquan.pro)
 
 android-support是针对于Android开发封装好一些常用的基类，主要包括通用的Adapter、Activity、Fragment、Dialog等、和一些常用的Util类，只为更简单。
-
+## 引入
+   Gradle
+   1. 在项目 build.gradle 添加 JitPack 仓库
+   ```kotlin
+    allprojects {
+        repositories {
+            ... 
+            maven { url 'https://jitpack.io' }
+        }
+	}
+```
+   2. 引入库
+   ```kotlin
+    // 其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.github.4evercai:android-support:latest.release'  
+```
 ## 注意事项
 1.App的 Application 需要继承BaseApplication  
 
