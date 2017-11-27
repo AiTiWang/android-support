@@ -164,9 +164,4 @@ object AppUtils {
     }
 
 
-    fun getMoneyString(money: Double): String {
-        val bd = BigDecimal(money)
-        val moneyStr = bd.setScale(2, BigDecimal.ROUND_HALF_UP).toString()
-        return moneyStr
-    }
 }

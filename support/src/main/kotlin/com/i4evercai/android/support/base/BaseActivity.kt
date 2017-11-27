@@ -44,12 +44,15 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
         application = getApplication() as BaseApplication
         application.onActivityCreated(wrActivity)
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
+        initViews()
     }
 
     override fun onStart() {
         super.onStart()
         lifecycleRegistry.markState(Lifecycle.State.STARTED)
     }
+
+    open abstract fun initViews()
 
     override fun onResume() {
         super.onResume()
