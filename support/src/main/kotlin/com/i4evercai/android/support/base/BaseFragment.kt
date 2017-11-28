@@ -181,4 +181,8 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
 
     }
+
+    override fun onClick(v: View?) {
+
+    }
 }
