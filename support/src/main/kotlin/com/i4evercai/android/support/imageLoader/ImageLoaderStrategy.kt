@@ -2,6 +2,7 @@ package com.i4evercai.android.support.imageLoader
 
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
 
@@ -17,7 +18,11 @@ interface ImageLoaderStrategy {
 
 
     fun init(context: Context)
-    fun getBitmap(string: String,onGetBitmapListener: OnGetBitmapListener)
+    fun getBitmap(path: String, onGetBitmapListener: OnGetBitmapListener)
+    /**
+     * 获取图片同步
+     */
+    fun getBitmapSync(path: String): Bitmap
 
     fun cleanMemory(context: Context)
 
@@ -28,7 +33,7 @@ interface ImageLoaderStrategy {
      * @param path 图片地址
      */
     fun showImage(imageView: ImageView, path: String)
-   /* fun showImage(imageView: ImageView, path: String,imageLoaderOptions: ImageLoaderOptions)*/
+    /* fun showImage(imageView: ImageView, path: String,imageLoaderOptions: ImageLoaderOptions)*/
     /**
      * 显示图片
      *
@@ -37,6 +42,7 @@ interface ImageLoaderStrategy {
      * @param placeholderResId 占位图resId
      */
     fun showImage(imageView: ImageView, path: String, @DrawableRes placeholderResId: Int)
+
     /**
      * 显示图片
      *
@@ -45,7 +51,7 @@ interface ImageLoaderStrategy {
      * @param placeholderResId 占位图resId
      * @param failureResId 加载失败图resId
      */
-    fun showImage(imageView:  ImageView, path: String, @DrawableRes placeholderResId: Int, @DrawableRes failureResId: Int)
+    fun showImage(imageView: ImageView, path: String, @DrawableRes placeholderResId: Int, @DrawableRes failureResId: Int)
 
     fun showImage(imageView: ImageView, path: String, isGif: Boolean, placeholderResId: Int, failureResId: Int)
 }

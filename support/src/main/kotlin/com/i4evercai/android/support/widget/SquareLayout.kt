@@ -12,27 +12,20 @@ import android.widget.RelativeLayout
  * @email FitzPro@qq.com
  * @date 2017/4/28 15:19
  */
-class SquareLayout : RelativeLayout {
+open class SquareLayout : RatioLayout {
+
 
     constructor(context: Context) : super(context) {
 
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0) {
 
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-
+        setRatio(1.0f)
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val childWidthSize = measuredWidth
-        val childHeightSize = measuredHeight
 
-        val newWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
-                childWidthSize, MeasureSpec.EXACTLY)
-        val newHeightMeasureSpec = newWidthMeasureSpec
-        super.onMeasure(newWidthMeasureSpec, newHeightMeasureSpec)
-    }
 }

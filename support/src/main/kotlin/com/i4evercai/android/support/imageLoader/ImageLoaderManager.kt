@@ -1,6 +1,7 @@
 package com.i4evercai.android.support.imageLoader
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
 
@@ -24,11 +25,11 @@ class ImageLoaderManager {
         val instance: ImageLoaderManager by lazy { Holder.INSTANCE }
     }
 
-    private constructor(){
+    private constructor() {
 
     }
 
-    fun init(context: Context,imageLoaderStrategy: ImageLoaderStrategy) {
+    fun init(context: Context, imageLoaderStrategy: ImageLoaderStrategy) {
         this.imageLoaderStrategy = imageLoaderStrategy
         imageLoaderStrategy.init(context)
     }
@@ -41,5 +42,11 @@ class ImageLoaderManager {
         imageLoaderStrategy.showImage(imageView, path, placeholderResId, failureResId)
     }
 
+    fun getBitmap(path: String, onGetBitmapListener: OnGetBitmapListener) {
+        imageLoaderStrategy.getBitmap(path, onGetBitmapListener)
+    }
 
+    fun getBitmapSync(path: String): Bitmap{
+        return imageLoaderStrategy.getBitmapSync(path)
+    }
 }
