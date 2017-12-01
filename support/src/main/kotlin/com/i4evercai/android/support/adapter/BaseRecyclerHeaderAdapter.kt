@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.support_item_empty.view.*
  * @date 2017/9/4 14:39
  * @version V1.0
  */
-abstract class BaseRecyclerHeaderAdapter<VH : android.support.v7.widget.RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.RecyclerView.ViewHolder, VH : android.support.v7.widget.RecyclerView.ViewHolder>
+    : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     companion object {
         private val S_TYPE_EMPTY = -25555411
         private val S_TYPE_HEADER = -25555412
@@ -106,7 +107,7 @@ abstract class BaseRecyclerHeaderAdapter<VH : android.support.v7.widget.Recycler
     final override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder != null) {
             if (isHeaderViewHolder(holder)) {
-                onBindHeaderHolder(holder)
+                onBindHeaderHolder(holder as VHH)
             } else
                 if (isEmptyViewHolder(holder)) {
                     onBindEmptyViewHolder(holder)
@@ -117,15 +118,18 @@ abstract class BaseRecyclerHeaderAdapter<VH : android.support.v7.widget.Recycler
     }
 
     final override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        if (S_TYPE_EMPTY == viewType) {
-            return getEmptyViewHolder(parent)
-        } else {
-            return onCreateAdapterViewHolder(parent, viewType)
-        }
+        if (S_TYPE_HEADER == viewType) {
+            return onCreateHeaderViewHolder(parent)
+        } else
+            if (S_TYPE_EMPTY == viewType) {
+                return onCreateEmptyViewHolder(parent)
+            } else {
+                return onCreateAdapterViewHolder(parent, viewType)
+            }
     }
 
 
-    fun getEmptyViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
+    fun onCreateEmptyViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
         val context = if (parent == null) mContext else parent.context
         val view = LayoutInflater.from(context).inflate(R.layout.support_item_empty, parent, false)
         return EmptyViewHolder(view)
@@ -161,9 +165,10 @@ abstract class BaseRecyclerHeaderAdapter<VH : android.support.v7.widget.Recycler
     abstract fun getAdapterItemCount(): Int
 
     abstract fun onCreateAdapterViewHolder(parent: ViewGroup?, viewType: Int): VH
+    abstract fun onCreateHeaderViewHolder(parent: ViewGroup?): VHH
     abstract fun onBindAdapterViewHolder(holder: VH, position: Int)
 
     abstract fun isHeaderViewHolder(holder: RecyclerView.ViewHolder): Boolean
 
-    abstract fun onBindHeaderHolder(holder: RecyclerView.ViewHolder)
+    abstract fun onBindHeaderHolder(holder: VHH)
 }
