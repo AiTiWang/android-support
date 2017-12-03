@@ -5,6 +5,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LifecycleRegistry
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.ColorInt
@@ -155,12 +156,16 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     fun showProgressDialog(msg: String) {
         showProgressDialog(msg, true)
     }
+    fun dismissProgressDialog() {
+        loadingDialog.dismiss()
+    }
 
     fun showProgressDialog(msg: String, cancelable: Boolean) {
         loadingDialog.isCancelable = cancelable
         loadingDialog.setMessage(msg)
         loadingDialog.show(supportFragmentManager)
     }
+
 
     // 权限请求
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

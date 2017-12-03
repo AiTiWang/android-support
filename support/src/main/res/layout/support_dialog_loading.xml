@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.mokktech.support.widget.LoadingTextView
+    <com.i4evercai.android.support.widget.LoadingTextView
         android:id="@+id/tvMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

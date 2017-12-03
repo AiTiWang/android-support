@@ -1,2 +1,2 @@
-include ':support'
+include ':support', ':app'
 rootProject.name = 'android-support'

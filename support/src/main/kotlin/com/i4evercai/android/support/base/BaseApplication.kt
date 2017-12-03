@@ -21,7 +21,6 @@ abstract open class BaseApplication : Application() {
         AnalyticsManager.init(this)
         if (AppUtils.isMainProcess(this)) {
             initConfig()
-
         }
 
     }

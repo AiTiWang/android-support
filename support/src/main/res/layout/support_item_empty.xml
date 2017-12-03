@@ -19,5 +19,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="暂无相关数据" />
+        android:text="@string/support_recycler_empty_msg" />
 </LinearLayout>
