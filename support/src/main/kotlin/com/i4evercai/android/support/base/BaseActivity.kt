@@ -33,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     protected val activity by lazy { this }
     protected val wrActivity by lazy { WeakReference<Activity>(activity) }
     protected lateinit var application: BaseApplication
-    protected lateinit var context: Context
+    protected val context: Context by lazy { this }
     protected val onClickListener by lazy { this }
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     private var toast: Toast? = null
@@ -45,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
         application = getApplication() as BaseApplication
         application.onActivityCreated(wrActivity)
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
-       // initViews()
+        // initViews()
     }
 
     override fun onStart() {
