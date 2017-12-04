@@ -1,9 +1,12 @@
 package com.i4evercai.android.support.adapter
 
 import android.content.Context
+import android.content.IntentFilter
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -130,17 +133,49 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
 
 
     fun onCreateEmptyViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
-        val context = if (parent == null) mContext else parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.support_item_empty, parent, false)
-        return EmptyViewHolder(view)
+        return BaseRecyclerAdapter.EmptyViewHolder(mContext,parent)
     }
 
     fun onBindEmptyViewHolder(holder: RecyclerView.ViewHolder) {
-        if (holder is EmptyViewHolder) {
-            val emptyViewHolder: EmptyViewHolder = holder
+        if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
+            val emptyViewHolder: BaseRecyclerAdapter.EmptyViewHolder = holder
             emptyViewHolder.setData(mEmptyIconRes, mEmptyMsg)
         }
 
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+        if (recyclerView!=null){
+            val manager = recyclerView.layoutManager
+
+            if (manager!=null && manager is GridLayoutManager){
+                manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+                    override fun getSpanSize(position: Int): Int {
+                        val type = getItemViewType(position)
+                        val spanCount = manager.spanCount
+                        if (type == S_TYPE_EMPTY){
+                            return spanCount
+                        }else if (type == S_TYPE_HEADER){
+                            return spanCount
+                        }else{
+                            return getGridLayoutManagerSpanSize(position)
+                        }
+                    }
+                }
+            }
+        }
+        super.onAttachedToRecyclerView(recyclerView)
+    }
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
+        if (holder!=null && holder is BaseRecyclerAdapter.EmptyViewHolder){
+            val lp=holder.itemView.layoutParams
+            if (lp!=null && lp is StaggeredGridLayoutManager.LayoutParams){
+                if (holder is BaseRecyclerAdapter.EmptyViewHolder){
+                    lp.isFullSpan = true
+                }
+            }
+        }
+        super.onViewAttachedToWindow(holder)
     }
 
 
@@ -148,17 +183,11 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
      * 判断是否是EmptyViewHolder
      */
     private fun isEmptyViewHolder(holder: RecyclerView.ViewHolder): Boolean {
-        return holder is EmptyViewHolder
+        return holder is BaseRecyclerAdapter.EmptyViewHolder
     }
 
-    private class EmptyViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun setData(@DrawableRes emptyIconRes: Int, emptyMsg: String) = with(itemView) {
 
-            supportIvEmptyNotice.setImageResource(emptyIconRes)
-            supportTvEmptyMsg.text = emptyMsg
-        }
-    }
-
+    open fun getGridLayoutManagerSpanSize(position: Int): Int  = 1
 
     open fun getAdapterItemViewType(position: Int): Int = 0
 
