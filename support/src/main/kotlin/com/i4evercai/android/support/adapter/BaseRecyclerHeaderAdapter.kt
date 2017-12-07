@@ -31,7 +31,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
     private val mContext: Context
     private var mIsShowEmptyView = true
     private var mIsShowHeaderView = false
-    private var mEmptyIconRes: Int = R.drawable.support_ic_empty_notice
+    private var mEmptyLottieAnimName: String = "support_empty_loading_lottie.json"
     private var mEmptyMsg: String = ""
 
     constructor(context: Context) : this(context, true, true)
@@ -40,20 +40,20 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         this.mContext = context
         this.mIsShowEmptyView = showEmptyView
         this.mIsShowHeaderView = showHeaderView
-        this.mEmptyMsg = context.resources.getString(R.string.support_recycler_empty_msg)
+        this.mEmptyMsg = context.resources.getString(R.string.support_recycler_empty_loading_msg)
     }
 
-    constructor(context: Context, showHeaderView: Boolean, @DrawableRes emptyIconRes: Int, emptyMsg: String) : super() {
+    constructor(context: Context, showHeaderView: Boolean, emptyLottieAnimName: String, emptyMsg: String) : super() {
         this.mContext = context
         this.mIsShowHeaderView = showHeaderView
-        this.mEmptyIconRes = emptyIconRes
+        this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = emptyMsg
     }
 
-    constructor(context: Context, showHeaderView: Boolean, @DrawableRes emptyIconRes: Int, @StringRes emptyMsgRes: Int) : super() {
+    constructor(context: Context, showHeaderView: Boolean,emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) : super() {
         this.mContext = context
         this.mIsShowHeaderView = showHeaderView
-        this.mEmptyIconRes = emptyIconRes
+        this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = context.getString(emptyMsgRes)
     }
 
@@ -133,31 +133,31 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
 
 
     fun onCreateEmptyViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
-        return BaseRecyclerAdapter.EmptyViewHolder(mContext,parent)
+        return BaseRecyclerAdapter.EmptyViewHolder(mContext, parent)
     }
 
     fun onBindEmptyViewHolder(holder: RecyclerView.ViewHolder) {
         if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
             val emptyViewHolder: BaseRecyclerAdapter.EmptyViewHolder = holder
-            emptyViewHolder.setData(mEmptyIconRes, mEmptyMsg)
+            emptyViewHolder.setData(mEmptyLottieAnimName, mEmptyMsg)
         }
 
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
-        if (recyclerView!=null){
+        if (recyclerView != null) {
             val manager = recyclerView.layoutManager
 
-            if (manager!=null && manager is GridLayoutManager){
-                manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+            if (manager != null && manager is GridLayoutManager) {
+                manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         val type = getItemViewType(position)
                         val spanCount = manager.spanCount
-                        if (type == S_TYPE_EMPTY){
+                        if (type == S_TYPE_EMPTY) {
                             return spanCount
-                        }else if (type == S_TYPE_HEADER){
+                        } else if (type == S_TYPE_HEADER) {
                             return spanCount
-                        }else{
+                        } else {
                             return getGridLayoutManagerSpanSize(position)
                         }
                     }
@@ -166,11 +166,12 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         }
         super.onAttachedToRecyclerView(recyclerView)
     }
+
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
-        if (holder!=null && holder is BaseRecyclerAdapter.EmptyViewHolder){
-            val lp=holder.itemView.layoutParams
-            if (lp!=null && lp is StaggeredGridLayoutManager.LayoutParams){
-                if (holder is BaseRecyclerAdapter.EmptyViewHolder){
+        if (holder != null && holder is BaseRecyclerAdapter.EmptyViewHolder) {
+            val lp = holder.itemView.layoutParams
+            if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams) {
+                if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
                     lp.isFullSpan = true
                 }
             }
@@ -178,6 +179,32 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         super.onViewAttachedToWindow(holder)
     }
 
+    open fun updateEmptyNoticeStatus(noticeStatus:Int) {
+        if (noticeStatus == BaseRecyclerAdapter.EMPTY_NOTICE_STATUS_LOADING){
+            mEmptyLottieAnimName =  "support_empty_loading_lottie.json"
+            mEmptyMsg = mContext.getString(R.string.support_recycler_empty_loading_msg)
+        }else{
+            mEmptyLottieAnimName =  "support_empty_no_data_lottie.json"
+            mEmptyMsg = mContext.getString(R.string.support_recycler_empty_no_data_msg)
+        }
+
+        if (getAdapterItemCount() == 0 && mIsShowEmptyView) {
+            notifyDataSetChanged()
+        }
+    }
+
+    open fun updateEmptyViewData(emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) {
+        updateEmptyViewData(emptyLottieAnimName, mContext.getString(emptyMsgRes))
+    }
+
+    open fun updateEmptyViewData(emptyLottieAnimName: String, emptyMsg: String) {
+        this.mEmptyLottieAnimName = emptyLottieAnimName
+        this.mEmptyMsg = emptyMsg
+
+        if (getAdapterItemCount() == 0 && mIsShowEmptyView) {
+            notifyDataSetChanged()
+        }
+    }
 
     /**
      * 判断是否是EmptyViewHolder
@@ -187,7 +214,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
     }
 
 
-    open fun getGridLayoutManagerSpanSize(position: Int): Int  = 1
+    open fun getGridLayoutManagerSpanSize(position: Int): Int = 1
 
     open fun getAdapterItemViewType(position: Int): Int = 0
 

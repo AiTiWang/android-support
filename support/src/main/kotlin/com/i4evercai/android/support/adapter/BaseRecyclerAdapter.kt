@@ -10,6 +10,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.OnCompositionLoadedListener
 import com.i4evercai.android.support.R
 import com.i4evercai.android.support.widget.RecyclerView.BaseViewHolder
 import kotlinx.android.synthetic.main.support_item_empty.view.*
@@ -25,11 +27,15 @@ import kotlinx.android.synthetic.main.support_item_empty.view.*
 abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     companion object {
         private val S_TYPE_EMPTY = -25555411
+
+        const val EMPTY_NOTICE_STATUS_LOADING = 1
+        const val EMPTY_NOTICE_STATUS_NO_DATA = 2
+
     }
 
     private val mContext: Context
     private var mIsShowEmptyView = true
-    private var mEmptyIconRes: Int = R.drawable.support_ic_empty_notice
+    private var mEmptyLottieAnimName: String = "support_empty_loading_lottie.json"
     private var mEmptyMsg: String = ""
 
     constructor(context: Context) : this(context, true)
@@ -37,18 +43,18 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
     constructor(context: Context, showEmptyView: Boolean) : super() {
         this.mContext = context
         this.mIsShowEmptyView = showEmptyView
-        this.mEmptyMsg = context.resources.getString(R.string.support_recycler_empty_msg)
+        this.mEmptyMsg = context.resources.getString(R.string.support_recycler_empty_loading_msg)
     }
 
-    constructor(context: Context, @DrawableRes emptyIconRes: Int, emptyMsg: String) : super() {
+    constructor(context: Context, emptyLottieAnimName: String, emptyMsg: String) : super() {
         this.mContext = context
-        this.mEmptyIconRes = emptyIconRes
+        this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = emptyMsg
     }
 
-    constructor(context: Context, @DrawableRes emptyIconRes: Int, @StringRes emptyMsgRes: Int) : super() {
+    constructor(context: Context, emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) : super() {
         this.mContext = context
-        this.mEmptyIconRes = emptyIconRes
+        this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = context.getString(emptyMsgRes)
     }
 
@@ -61,6 +67,34 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
         this.mContext = context
         this.mEmptyMsg = emptyMsg
     }
+
+    open fun updateEmptyNoticeStatus(noticeStatus:Int) {
+        if (noticeStatus == EMPTY_NOTICE_STATUS_LOADING ){
+            mEmptyLottieAnimName =  "support_empty_loading_lottie.json"
+            mEmptyMsg = mContext.getString(R.string.support_recycler_empty_loading_msg)
+        }else{
+            mEmptyLottieAnimName =  "support_empty_no_data_lottie.json"
+            mEmptyMsg = mContext.getString(R.string.support_recycler_empty_no_data_msg)
+        }
+
+        if (getAdapterItemCount() == 0 && mIsShowEmptyView) {
+            notifyDataSetChanged()
+        }
+    }
+
+    open fun updateEmptyViewData(emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) {
+        updateEmptyViewData(emptyLottieAnimName, mContext.getString(emptyMsgRes))
+    }
+
+    open fun updateEmptyViewData(emptyLottieAnimName: String, emptyMsg: String) {
+        this.mEmptyLottieAnimName = emptyLottieAnimName
+        this.mEmptyMsg = emptyMsg
+
+        if (getAdapterItemCount() == 0 && mIsShowEmptyView) {
+            notifyDataSetChanged()
+        }
+    }
+
 
     final override fun getItemCount(): Int {
         if (getAdapterItemCount() == 0 && mIsShowEmptyView) {
@@ -100,13 +134,13 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
 
     fun getEmptyViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
 
-        return EmptyViewHolder(mContext,parent)
+        return EmptyViewHolder(mContext, parent)
     }
 
     fun onBindEmptyViewHolder(holder: RecyclerView.ViewHolder) {
         if (holder is EmptyViewHolder) {
             val emptyViewHolder: EmptyViewHolder = holder
-            emptyViewHolder.setData(mEmptyIconRes, mEmptyMsg)
+            emptyViewHolder.setData(mEmptyLottieAnimName, mEmptyMsg)
         }
 
     }
@@ -118,26 +152,40 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
         return holder is EmptyViewHolder
     }
 
-    open class EmptyViewHolder constructor(context: Context, parent: ViewGroup?) : BaseViewHolder(context,parent,R.layout.support_item_empty) {
-        fun setData(@DrawableRes emptyIconRes: Int, emptyMsg: String) = with(itemView) {
+    open class EmptyViewHolder  : BaseViewHolder, OnCompositionLoadedListener {
+        private val context:Context
+        constructor(context: Context, parent: ViewGroup?):super(context, parent, R.layout.support_item_empty){
+            this.context = context
+        }
+        fun setData(emptyLottieAnimName: String, emptyMsg: String) = with(itemView) {
+            LottieComposition.Factory.fromAssetFileName(context,emptyLottieAnimName,this@EmptyViewHolder)
 
-            supportIvEmptyNotice.setImageResource(emptyIconRes)
+          //  supportIvEmptyNotice.setImageResource(emptyIconRes)
             supportTvEmptyMsg.text = emptyMsg
+        }
+
+        override fun onCompositionLoaded(composition: LottieComposition?) {
+            if (composition!=null){
+                with(itemView){
+                    supportLottieView.setComposition(composition)
+                    supportLottieView.playAnimation()
+                }
+            }
         }
 
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
-        if (recyclerView!=null){
+        if (recyclerView != null) {
             val manager = recyclerView.layoutManager
-            if (manager is GridLayoutManager){
-                manager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
+            if (manager is GridLayoutManager) {
+                manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         val type = getItemViewType(position)
                         val spanCount = manager.spanCount
-                        if (type == S_TYPE_EMPTY){
+                        if (type == S_TYPE_EMPTY) {
                             return spanCount
-                        }else{
+                        } else {
                             return getGridLayoutManagerSpanSize(position)
                         }
                     }
@@ -146,11 +194,12 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
         }
         super.onAttachedToRecyclerView(recyclerView)
     }
+
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
-        if (holder!=null && holder is EmptyViewHolder){
-            val lp=holder.itemView.layoutParams
-            if (lp!=null && lp is StaggeredGridLayoutManager.LayoutParams){
-                if (holder is EmptyViewHolder){
+        if (holder != null && holder is EmptyViewHolder) {
+            val lp = holder.itemView.layoutParams
+            if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams) {
+                if (holder is EmptyViewHolder) {
                     lp.isFullSpan = true
                 }
             }
@@ -158,7 +207,7 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
         super.onViewAttachedToWindow(holder)
     }
 
-    open fun getGridLayoutManagerSpanSize(position: Int): Int  = 1
+    open fun getGridLayoutManagerSpanSize(position: Int): Int = 1
 
     open fun getAdapterItemViewType(position: Int): Int = 0
 

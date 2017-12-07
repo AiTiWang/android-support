@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AndroidSupport</string>
     <string name="support_loading_dialog_msg">玩命加载中</string>
-    <string name="support_recycler_empty_msg">暂无数据</string>
+    <string name="support_recycler_empty_no_data_msg">暂无数据</string>
+    <string name="support_recycler_empty_loading_msg">玩命加载中</string>
 </resources>

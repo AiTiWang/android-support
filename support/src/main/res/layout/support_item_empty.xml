@@ -8,16 +8,19 @@
     android:paddingBottom="48dp"
     android:orientation="vertical"
     android:gravity="center">
-    <ImageView
-        android:id="@+id/supportIvEmptyNotice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/support_ic_empty_notice" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/supportLottieView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:lottie_fileName="support_empty_loading_lottie.json"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
 
     <TextView
         android:id="@+id/supportTvEmptyMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/support_recycler_empty_msg" />
+        android:text="@string/support_recycler_empty_no_data_msg" />
 </LinearLayout>
