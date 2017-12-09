@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/support_button_click_ripple">
+   <!-- <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke android:width="@dimen/support_button_stroke_width" android:color="@color/support_button_gray_stroke" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>-->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke android:width="@dimen/support_button_stroke_width" android:color="@color/support_button_gray_stroke" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</ripple>

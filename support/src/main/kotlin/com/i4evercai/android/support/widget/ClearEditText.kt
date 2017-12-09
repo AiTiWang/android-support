@@ -21,7 +21,7 @@ import com.i4evercai.android.support.R
  * @date 2017/8/11 16:06
  * @version V1.0
  */
-class ClearEditText : AppCompatEditText, View.OnTouchListener, View.OnFocusChangeListener, TextWatcher {
+open class ClearEditText : AppCompatEditText, View.OnTouchListener, View.OnFocusChangeListener, TextWatcher {
 
     private lateinit var mClearTextIcon: Drawable
     private var mOnFocusChangeListener: OnFocusChangeListener? = null

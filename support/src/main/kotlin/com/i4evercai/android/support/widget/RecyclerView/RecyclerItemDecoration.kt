@@ -1,4 +1,4 @@
-package com.i4evercai.android.support.widget
+package com.i4evercai.android.support.widget.RecyclerView
 
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -19,7 +19,7 @@ import android.view.View
  * @email FitzPro@qq.com
  * @date 2017/4/28 15:19
  */
-class RecyclerItemDecoration : RecyclerView.ItemDecoration {
+open class RecyclerItemDecoration : RecyclerView.ItemDecoration {
 
     private var space: Int = 0
     private var color = -1

@@ -15,7 +15,7 @@ import android.widget.ImageView
  * @date 2017/8/7 15:16
  * @version V1.0
  */
-class AnimImageView : ImageView {
+open class AnimImageView : ImageView {
     constructor(context: Context) : super(context) {
 
     }

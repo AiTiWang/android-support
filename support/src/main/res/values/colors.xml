@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="support_loading_dialog_msg_text">#606060</color>
+    <color name="support_list_divider">#d9d9d9</color>
+    <color name="support_button_click_ripple">#d9d9d9</color>
+    <color name="support_button_click_color">#d9d9d9</color>
+    <color name="support_button_gray_stroke">#d9d9d9</color>
 </resources>

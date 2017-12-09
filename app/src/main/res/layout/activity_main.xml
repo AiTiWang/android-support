@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:padding="16dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
         tools:context="i4evercai.com.demo.MainActivity">
 
 
         <Button
             android:id="@+id/btnLoadingDialog"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:text="显示加载中对话框(5秒后关闭)"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/support_btn_white_corner_gray_stroke"
+            android:text="显示加载中对话框(5秒后关闭)" />
+
         <Button
             android:id="@+id/btnRvAdpter"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:text="Base RecyclerView Adapter"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/support_btn_white_corner_primary_stroke"
+            android:text="Base RecyclerView Adapter" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
