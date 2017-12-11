@@ -50,7 +50,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         this.mEmptyMsg = emptyMsg
     }
 
-    constructor(context: Context, showHeaderView: Boolean,emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) : super() {
+    constructor(context: Context, showHeaderView: Boolean, emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) : super() {
         this.mContext = context
         this.mIsShowHeaderView = showHeaderView
         this.mEmptyLottieAnimName = emptyLottieAnimName
@@ -115,6 +115,10 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
                 if (isEmptyViewHolder(holder)) {
                     onBindEmptyViewHolder(holder)
                 } else {
+                    var position = position
+                    if (mIsShowHeaderView) {
+                        position = position - 1
+                    }
                     onBindAdapterViewHolder(holder as VH, position)
                 }
         }
@@ -179,12 +183,12 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         super.onViewAttachedToWindow(holder)
     }
 
-    open fun updateEmptyNoticeStatus(noticeStatus:Int) {
-        if (noticeStatus == BaseRecyclerAdapter.EMPTY_NOTICE_STATUS_LOADING){
-            mEmptyLottieAnimName =  "support_empty_loading_lottie.json"
+    open fun updateEmptyNoticeStatus(noticeStatus: Int) {
+        if (noticeStatus == BaseRecyclerAdapter.EMPTY_NOTICE_STATUS_LOADING) {
+            mEmptyLottieAnimName = "support_empty_loading_lottie.json"
             mEmptyMsg = mContext.getString(R.string.support_recycler_empty_loading_msg)
-        }else{
-            mEmptyLottieAnimName =  "support_empty_no_data_lottie.json"
+        } else {
+            mEmptyLottieAnimName = "support_empty_no_data_lottie.json"
             mEmptyMsg = mContext.getString(R.string.support_recycler_empty_no_data_msg)
         }
 
