@@ -157,7 +157,9 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
         showProgressDialog(msg, true)
     }
     fun dismissProgressDialog() {
-        loadingDialog.dismiss()
+        if (loadingDialog.dialog.isShowing){
+            loadingDialog.dismiss()
+        }
     }
 
     fun showProgressDialog(msg: String, cancelable: Boolean) {

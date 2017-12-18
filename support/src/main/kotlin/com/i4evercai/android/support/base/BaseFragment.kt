@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     private var isFirstLoad = true  //是否第一次加载完
     private var isInitView = false
-
+    private var title = ""
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -184,5 +185,17 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     override fun onClick(v: View?) {
 
+    }
+
+    open fun getTitle(): String {
+        return title
+    }
+
+    open fun setTitle(@StringRes stringRes: Int) {
+        title = getString(stringRes)
+    }
+
+    open fun setTitle(title: String) {
+        this.title = title
     }
 }
