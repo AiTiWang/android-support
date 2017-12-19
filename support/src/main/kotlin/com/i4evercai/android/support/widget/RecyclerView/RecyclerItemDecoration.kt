@@ -51,6 +51,7 @@ open class RecyclerItemDecoration : RecyclerView.ItemDecoration {
     constructor(space: Int, color: Int, type: Int) {
         this.space = space
         this.color = color
+        paint = Paint(android.graphics.Paint.ANTI_ALIAS_FLAG)
         paint!!.setColor(color)
         paint!!.setStyle(Paint.Style.FILL)
         paint!!.setStrokeWidth(space * 2.0f)

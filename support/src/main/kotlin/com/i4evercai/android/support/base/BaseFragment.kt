@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.i4evercai.android.support.widget.LoadingDialog
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.trello.rxlifecycle2.RxLifecycle
 import io.reactivex.Observable
@@ -39,8 +40,8 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     private var isFirstLoad = true  //是否第一次加载完
     private var isInitView = false
-    private var title = ""
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
+    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog() }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
@@ -161,6 +162,20 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         toast = Toast.makeText(context, textResId, duration)
         toast?.show()
     }
+    fun showProgressDialog(msg: String) {
+        showProgressDialog(msg, true)
+    }
+    fun dismissProgressDialog() {
+        if (loadingDialog.dialog.isShowing){
+            loadingDialog.dismiss()
+        }
+    }
+
+    fun showProgressDialog(msg: String, cancelable: Boolean) {
+        loadingDialog.isCancelable = cancelable
+        loadingDialog.setMessage(msg)
+        loadingDialog.show(childFragmentManager)
+    }
 
 
     // 权限请求
@@ -187,15 +202,5 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     }
 
-    open fun getTitle(): String {
-        return title
-    }
 
-    open fun setTitle(@StringRes stringRes: Int) {
-        title = getString(stringRes)
-    }
-
-    open fun setTitle(title: String) {
-        this.title = title
-    }
 }
