@@ -5,6 +5,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LifecycleRegistry
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
@@ -46,7 +47,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
         //绑定View
-        mView = inflater!!.inflate(getlayoutId(), container, false)
+        mView = inflater!!.inflate(getLayoutId(), container, false)
         isPrepared = true
         isInitView = false
         return mView
@@ -107,7 +108,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     }
 
 
-    abstract fun getlayoutId(): Int
+    abstract fun getLayoutId(): Int
     abstract fun initViews()
     abstract fun lazyLoadData()
 
@@ -166,7 +167,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         showProgressDialog(msg, true)
     }
     fun dismissProgressDialog() {
-        if (loadingDialog.dialog.isShowing){
+        if (loadingDialog.isAdded){
             loadingDialog.dismiss()
         }
     }
@@ -192,7 +193,10 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
             }
         }
     }
-
+    inline fun <reified T: Activity> startActivity(){
+        val intent = Intent(activity,T::class.java)
+        activity.startActivity(intent)
+    }
     // 权限请求成功
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
 

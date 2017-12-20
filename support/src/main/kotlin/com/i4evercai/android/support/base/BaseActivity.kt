@@ -156,8 +156,9 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     fun showProgressDialog(msg: String) {
         showProgressDialog(msg, true)
     }
+
     fun dismissProgressDialog() {
-        if (loadingDialog.dialog.isShowing){
+        if (loadingDialog.isAdded){
             loadingDialog.dismiss()
         }
     }
@@ -187,6 +188,11 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     // 权限请求成功
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
 
+    }
+
+    inline fun <reified T : Activity> startActivity() {
+        val intent = Intent(activity, T::class.java)
+        activity.startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
