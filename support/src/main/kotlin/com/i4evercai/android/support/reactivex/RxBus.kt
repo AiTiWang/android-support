@@ -103,5 +103,5 @@ fun <T> Observable<T>.registerInBus(onEventListener: ((event: T) -> Unit),
     this.observeOn(observeOnScheduler)
             .bindUntilEvent(owner,event)
             .subscribe { event: T -> onEventListener.invoke(event) }
-            .registerInBus(this)
+            .registerInBus(subscriber)
 }
