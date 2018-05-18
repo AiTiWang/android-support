@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         return mView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!isInitView) {
 
