@@ -44,7 +44,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog() }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
         //绑定View
         mView = inflater!!.inflate(getLayoutId(), container, false)
@@ -64,7 +64,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         lazyLoad()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         outState!!.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden)
     }
 
