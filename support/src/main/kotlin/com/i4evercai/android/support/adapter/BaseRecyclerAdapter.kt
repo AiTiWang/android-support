@@ -113,17 +113,15 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
     }
 
 
-    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder != null) {
+    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (isEmptyViewHolder(holder)) {
                 onBindEmptyViewHolder(holder)
             } else {
                 onBindAdapterViewHolder(holder as VH, position)
             }
-        }
     }
 
-    final override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (S_TYPE_EMPTY == viewType) {
             return getEmptyViewHolder(parent)
         } else {
@@ -175,8 +173,7 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
 
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
-        if (recyclerView != null) {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
             val manager = recyclerView.layoutManager
             if (manager is GridLayoutManager) {
                 manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -190,13 +187,12 @@ abstract class BaseRecyclerAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.
                         }
                     }
                 }
-            }
         }
         super.onAttachedToRecyclerView(recyclerView)
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
-        if (holder != null && holder is EmptyViewHolder) {
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        if ( holder is EmptyViewHolder) {
             val lp = holder.itemView.layoutParams
             if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams) {
                 if (holder is EmptyViewHolder) {

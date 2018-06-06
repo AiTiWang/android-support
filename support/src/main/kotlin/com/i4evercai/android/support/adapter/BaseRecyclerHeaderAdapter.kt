@@ -107,7 +107,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
     }
 
 
-    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    final override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder != null) {
             if (isHeaderViewHolder(holder)) {
                 onBindHeaderHolder(holder as VHH)
@@ -124,7 +124,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         }
     }
 
-    final override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (S_TYPE_HEADER == viewType) {
             return onCreateHeaderViewHolder(parent)
         } else
@@ -148,22 +148,20 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
 
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
-        if (recyclerView != null) {
-            val manager = recyclerView.layoutManager
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        val manager = recyclerView.layoutManager
 
-            if (manager != null && manager is GridLayoutManager) {
-                manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        val type = getItemViewType(position)
-                        val spanCount = manager.spanCount
-                        if (type == S_TYPE_EMPTY) {
-                            return spanCount
-                        } else if (type == S_TYPE_HEADER) {
-                            return spanCount
-                        } else {
-                            return getGridLayoutManagerSpanSize(position)
-                        }
+        if (manager != null && manager is GridLayoutManager) {
+            manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val type = getItemViewType(position)
+                    val spanCount = manager.spanCount
+                    if (type == S_TYPE_EMPTY) {
+                        return spanCount
+                    } else if (type == S_TYPE_HEADER) {
+                        return spanCount
+                    } else {
+                        return getGridLayoutManagerSpanSize(position)
                     }
                 }
             }
@@ -171,13 +169,13 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         super.onAttachedToRecyclerView(recyclerView)
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
-        if (holder != null && holder is BaseRecyclerAdapter.EmptyViewHolder) {
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
             val lp = holder.itemView.layoutParams
             if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams) {
-                if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
-                    lp.isFullSpan = true
-                }
+                //  if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
+                lp.isFullSpan = true
+                //   }
             }
         }
         super.onViewAttachedToWindow(holder)

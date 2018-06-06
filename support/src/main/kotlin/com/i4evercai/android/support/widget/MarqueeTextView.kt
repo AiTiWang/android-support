@@ -13,7 +13,7 @@ import android.util.AttributeSet
  * @date 2017/7/13 15:15
  * @version V1.0
  */
-class MarqueeTextView : AppCompatTextView {
+class MarqueeTextView : SingleLineTextView {
     constructor(context: Context) : super(context) {
         setAlawayMarquee()
     }
@@ -27,8 +27,8 @@ class MarqueeTextView : AppCompatTextView {
     }
 
     private fun setAlawayMarquee() {
-        setSingleLine(true)
-        maxLines = 1
+       // setSingleLine(true)
+        // maxLines = 1
         ellipsize = TextUtils.TruncateAt.MARQUEE
         marqueeRepeatLimit = -1
 

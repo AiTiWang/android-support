@@ -39,7 +39,7 @@ class RecycleViewLinearDivider constructor(context: Context, orientation: Int) :
     }
 
     constructor(context: Context, orientation: Int, @DrawableRes drawableId: Int) : this(context, orientation) {
-        mDivider = ContextCompat.getDrawable(context, drawableId);
+        mDivider = ContextCompat.getDrawable(context, drawableId)!!;
         mDividerHeight = mDivider.getIntrinsicHeight();
     }
 

@@ -188,14 +188,14 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     // 权限请求被拒绝
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
         if (perms != null) {
-            if (EasyPermissions.somePermissionPermanentlyDenied(activity, perms)) {
+            if (EasyPermissions.somePermissionPermanentlyDenied(activity!!, perms)) {
                 AppSettingsDialog.Builder(this).build().show()
             }
         }
     }
     inline fun <reified T: Activity> startActivity(){
         val intent = Intent(activity,T::class.java)
-        activity.startActivity(intent)
+        activity?.startActivity(intent)
     }
     // 权限请求成功
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {

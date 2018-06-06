@@ -2,15 +2,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-kapt'
 group='com.github.i4evercai'
 /*apply plugin: 'com.novoda.bintray-release'*/
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
    /*     applicationId "pro.youquan.android.support"*/
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,9 +25,15 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
 }
 
+kapt {
+    generateStubs = true
+    mapDiagnosticLocations = true
+    correctErrorTypes = true
 
+}
 /*publish {
     userOrg = '4evercai'
     groupId = 'com.4evercai.android'
@@ -42,15 +49,15 @@ kapt {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     api 'com.airbnb.android:lottie:2.3.0'
-    api "android.arch.lifecycle:runtime:1.0.3"
-    api "android.arch.lifecycle:extensions:1.0.0"
-    kapt "android.arch.lifecycle:compiler:1.0.0"
+    api "android.arch.lifecycle:runtime:1.1.1"
+    api "android.arch.lifecycle:extensions:1.1.1"
+    kapt "android.arch.lifecycle:compiler:1.1.1"
 
     // If you want to use Kotlin syntax with Android Lifecycle
     api  'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.1'

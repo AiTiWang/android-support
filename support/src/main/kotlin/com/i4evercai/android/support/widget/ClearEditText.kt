@@ -45,7 +45,7 @@ open class ClearEditText : AppCompatEditText, View.OnTouchListener, View.OnFocus
 
     fun init(context: Context) {
         val drawable = ContextCompat.getDrawable(context, R.drawable.support_ic_edit_text_delete)
-        val wrappedDrawable = DrawableCompat.wrap(drawable)
+        val wrappedDrawable = DrawableCompat.wrap(drawable!!)
         DrawableCompat.setTint(wrappedDrawable, getCurrentHintTextColor());
         mClearTextIcon = wrappedDrawable;
         mClearTextIcon.setBounds(0, 0, mClearTextIcon.getIntrinsicHeight(), mClearTextIcon.getIntrinsicHeight());
