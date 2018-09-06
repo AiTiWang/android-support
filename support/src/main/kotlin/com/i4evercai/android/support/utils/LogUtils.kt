@@ -18,7 +18,7 @@ import java.io.IOException
 object LogUtils {
 
     //   private val DEBUG = BuildConfig.DEBUG
-    private val DEBUG = true
+    private val DEBUG = AppUtils.isDebug
     private val TAG = "LogUtils.java"
     @JvmStatic
     fun e(message: String?) {

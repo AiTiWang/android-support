@@ -15,6 +15,7 @@ object ColorUtils {
     /**
      * 根据百分比改变颜色透明度
      */
+    @JvmStatic
     fun changeAlpha(color: Int, fraction: Float): Int {
         if (fraction >= 1) {
             return color

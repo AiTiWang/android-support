@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 
@@ -56,10 +57,15 @@ object NetWorkUtil {
      */
     @JvmStatic
     fun isWifi(context: Context): Boolean {
-        val cm = context
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager ?: return false
 
-        return cm.activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE)
+        if (cm!=null && cm is ConnectivityManager){
+            val activeNetworkInfo = cm.activeNetworkInfo
+            if (activeNetworkInfo!=null){
+                return ConnectivityManager.TYPE_WIFI  == activeNetworkInfo.type
+            }
+        }
+        return false
 
     }
 

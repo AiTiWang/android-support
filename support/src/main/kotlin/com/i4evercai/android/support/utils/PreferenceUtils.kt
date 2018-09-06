@@ -81,7 +81,7 @@ object PreferenceUtils {
     @JvmStatic
     fun putString(context: Context, preferencesFileName: String, key: String, value: String) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
-        sp.edit().putString(key, value).commit()
+        sp.edit().putString(key, value).apply()
     }
 
     @JvmStatic
@@ -99,13 +99,13 @@ object PreferenceUtils {
     @JvmStatic
     fun putBoolean(context: Context, preferencesFileName: String, key: String, value: Boolean) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
-        sp.edit().putBoolean(key, value).commit()
+        sp.edit().putBoolean(key, value).apply()
     }
 
     @JvmStatic
     fun putInt(context: Context, preferencesFileName: String, key: String, value: Int) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
-        sp.edit().putInt(key, value).commit()
+        sp.edit().putInt(key, value).apply()
     }
 
     @JvmStatic
@@ -117,7 +117,7 @@ object PreferenceUtils {
     @JvmStatic
     fun putFloat(context: Context, preferencesFileName: String, key: String, value: Float) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
-        sp.edit().putFloat(key, value).commit()
+        sp.edit().putFloat(key, value).apply()
     }
 
     @JvmStatic
@@ -129,7 +129,7 @@ object PreferenceUtils {
     @JvmStatic
     fun putLong(context: Context, preferencesFileName: String, key: String, value: Long) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
-        sp.edit().putLong(key, value).commit()
+        sp.edit().putLong(key, value).apply()
     }
 
     @JvmStatic
@@ -137,20 +137,29 @@ object PreferenceUtils {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
         return sp.getLong(key, defaultValue)
     }
+    @JvmStatic
+    fun removeKey(context: Context, preferencesFileName: String, key: String){
+        val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
+        sp.edit().remove(key).apply()
+    }
+    @JvmStatic
+    fun removeKey(context: Context, key: String){
+        removeKey(context,DEFAULT_FILE_NAME,key)
 
+    }
     @JvmStatic
     fun clearPreference(context: Context, preferencesFileName: String) {
         val sp = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE)
         val editor = sp.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
     }
 
     @JvmStatic
     fun clearPreference(context: Context, sp: SharedPreferences) {
         val editor = sp.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
     }
 
 }

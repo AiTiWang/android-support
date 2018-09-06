@@ -23,13 +23,14 @@ import java.util.*
  */
 object AppUtils {
     lateinit var appContext: Context
-
+    var isDebug = true
 
     /**
      * 获取应用程序名称
      *
      *@param[context] 上下文
      */
+    @JvmStatic
     fun getAppName(context: Context): String? {
         try {
             val packageManager = context.getPackageManager()
@@ -50,6 +51,7 @@ object AppUtils {
      * @param context
      * @return 当前应用的版本名称
      */
+    @JvmStatic
     fun getVersionName(context: Context): String? {
         try {
             val packageManager = context.getPackageManager()
@@ -63,7 +65,7 @@ object AppUtils {
 
         return null
     }
-
+    @JvmStatic
     fun getVersionCode(context: Context): Int {
         try {
             val packageManager = context.getPackageManager()
@@ -81,6 +83,7 @@ object AppUtils {
     /**
      * 判断是否为主进程
      */
+    @JvmStatic
     fun isMainProcess(context: Context): Boolean {
 
         val packageName = context.getPackageName();
@@ -91,6 +94,7 @@ object AppUtils {
     /**
      * 获取当前进程名
      */
+    @JvmStatic
     fun getProcessName(context: Context): String {
 
         var processName: String = ""
@@ -116,7 +120,7 @@ object AppUtils {
         }
         return processName
     }
-
+    @JvmStatic
     private fun getPhoneImei(context: Context): String {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             val tm = context.getSystemService(Context.TELEPHONY_SERVICE)
@@ -137,6 +141,7 @@ object AppUtils {
     /**
      * 获取IMEI
      */
+    @JvmStatic
     fun getImei(context: Context): String {
         var imei = ""
         try {
@@ -155,7 +160,7 @@ object AppUtils {
         }
         return imei
     }
-
+    @JvmStatic
     fun restartApp(context: Context) {
         val intent = context.getPackageManager()
                 .getLaunchIntentForPackage(context.getPackageName())

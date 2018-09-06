@@ -20,6 +20,7 @@ object ToolbarUtils {
     /**
      * 对Toolbar上的图标进行着色
      */
+    @JvmStatic
     fun colorizeToolbar(toolbar: Toolbar, @ColorInt toolbarIconsColor: Int) {
         val colorFilter = PorterDuffColorFilter(toolbarIconsColor, PorterDuff.Mode.MULTIPLY)
         for (i in 0..toolbar.childCount - 1) {
@@ -38,6 +39,7 @@ object ToolbarUtils {
         }
     }
 
+    @JvmStatic
     fun colorizeToolbar(toolbar: android.widget.Toolbar, @ColorInt toolbarIconsColor: Int) {
         val colorFilter = PorterDuffColorFilter(toolbarIconsColor, PorterDuff.Mode.MULTIPLY)
         for (i in 0..toolbar.childCount - 1) {
@@ -55,6 +57,7 @@ object ToolbarUtils {
         }
     }
 
+    @JvmStatic
     private fun colorizeActionMenuView(actionMenuView: ActionMenuView, colorFilter: PorterDuffColorFilter) {
 
         for (i in 0..actionMenuView.childCount) {
@@ -73,6 +76,7 @@ object ToolbarUtils {
         }
     }
 
+    @JvmStatic
     private fun colorizeActionMenuView(actionMenuView: android.widget.ActionMenuView, colorFilter: PorterDuffColorFilter) {
 
         for (i in 0..actionMenuView.childCount) {

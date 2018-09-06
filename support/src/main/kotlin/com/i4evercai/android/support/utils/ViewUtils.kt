@@ -11,10 +11,12 @@ import android.view.ViewGroup
  */
 object ViewUtils {
 
+    @JvmStatic
     fun getView(context: Context, parent: ViewGroup?, @LayoutRes layoutId: Int, attachToRoot: Boolean): View {
         return LayoutInflater.from(if (parent == null) context else parent.context).inflate(layoutId, parent, attachToRoot)
     }
 
+    @JvmStatic
     fun getView(context: Context, parent: ViewGroup?, @LayoutRes layoutId: Int): View {
         return getView(context, parent, layoutId, false)
     }

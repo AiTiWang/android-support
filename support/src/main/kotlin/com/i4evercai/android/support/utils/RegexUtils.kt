@@ -62,7 +62,8 @@ object RegexUtils {
     /**
      * 匹配密码的正则表达式
      */
-    val PASSWORD = "^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,14}\$$"
+    val PASSWORD_START_WITH_LETTER = "^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,14}\$$"
+    val PASSWORD = "^[\\w.]{6,16}\$"
 
     /**
      * 匹配给定的字符串是否是一个邮箱账号，"www."可省略不写
@@ -75,9 +76,20 @@ object RegexUtils {
     fun isEmail(string: String): Boolean {
         return string.matches(EMAIL_REGEX.toRegex())
     }
+
     @JvmStatic
     fun isPassword(string: String): Boolean {
-        return string.matches(PASSWORD.toRegex())
+        return isPassword(string, false)
+    }
+
+    @JvmStatic
+    fun isPassword(string: String, isNeedStartLetter: Boolean): Boolean {
+        if (isNeedStartLetter) {
+            return string.matches(PASSWORD_START_WITH_LETTER.toRegex())
+        } else {
+            return string.matches(PASSWORD.toRegex())
+        }
+
     }
 
     /**
@@ -91,25 +103,27 @@ object RegexUtils {
     fun isMobilePhoneNumber(string: String): Boolean {
         return string.matches(PHONE_NUMBER_REGEX.toRegex())
     }
+
     @JvmStatic
     fun isTelNumber(string: String): Boolean {
         val isTel = string.matches(TEL_NUMBER_REGEX.toRegex())
-        if (isTel){
+        if (isTel) {
             return true
-        }else{
+        } else {
             val isTel400 = string.matches(TEL_400_800_NUMBER_REGEX.toRegex())
             return isTel400
         }
 
     }
+
     @JvmStatic
     fun isTelOrMobilePhoneNumber(string: String): Boolean {
         val isMobile = isMobilePhoneNumber(string)
-        if (isMobile){
-            return  true
-        }else{
+        if (isMobile) {
+            return true
+        } else {
             val isTel = isTelNumber(string)
-            return  isTel
+            return isTel
         }
     }
 
