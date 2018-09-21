@@ -38,7 +38,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     protected val onClickListener by lazy { this }
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     private var toast: Toast? = null
-    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog() };
+    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(activity) };
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,15 +158,19 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     }
 
     fun dismissProgressDialog() {
-        if (loadingDialog.isAdded){
+        if (loadingDialog.isShowing){
             loadingDialog.dismiss()
         }
     }
 
     fun showProgressDialog(msg: String, cancelable: Boolean) {
-        loadingDialog.isCancelable = cancelable
-        loadingDialog.setMessage(msg)
-        loadingDialog.show(supportFragmentManager)
+        try {
+            loadingDialog.setCanceledOnTouchOutside(cancelable)
+            loadingDialog.setMessage(msg)
+            loadingDialog.show()
+        }catch (e:Exception){
+
+        }
     }
 
 

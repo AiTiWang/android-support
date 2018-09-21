@@ -29,6 +29,31 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/support_btn_white_corner_primary_stroke"
             android:text="Base RecyclerView Adapter" />
+
+        <com.i4evercai.android.support.widget.CornerImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner"
+            android:topLeftRadius="8dp" />
+
+        <com.i4evercai.android.support.widget.CornerImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner"
+            android:topLeftRadius="8dp"
+            android:topRightRadius="8dp" />
+
+        <com.i4evercai.android.support.widget.CornerImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner"
+            android:radius="8dp" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

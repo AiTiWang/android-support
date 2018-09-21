@@ -42,7 +42,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     private var isFirstLoad = true  //是否第一次加载完
     private var isInitView = false
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
-    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog() }
+    protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
@@ -167,15 +167,20 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         showProgressDialog(msg, true)
     }
     fun dismissProgressDialog() {
-        if (loadingDialog.isAdded){
+        if (loadingDialog.isShowing){
             loadingDialog.dismiss()
         }
     }
 
     fun showProgressDialog(msg: String, cancelable: Boolean) {
-        loadingDialog.isCancelable = cancelable
-        loadingDialog.setMessage(msg)
-        loadingDialog.show(childFragmentManager)
+        try {
+            loadingDialog.setCanceledOnTouchOutside(cancelable)
+            loadingDialog.setMessage(msg)
+            loadingDialog.show()
+        }catch (e:Exception){
+
+        }
+
     }
 
 
