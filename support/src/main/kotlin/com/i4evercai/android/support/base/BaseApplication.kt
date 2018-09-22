@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference
  * @version V1.0
  */
 abstract open class BaseApplication : Application() {
-    private val wrActivities = ArrayList<WeakReference<Activity>>()
+    protected val wrActivities = ArrayList<WeakReference<Activity>>()
     override fun onCreate() {
         super.onCreate()
         AnalyticsManager.init(this)
@@ -41,16 +41,17 @@ abstract open class BaseApplication : Application() {
         wrActivities.remove(wrActivity)
     }
 
-    fun exit() {
+    fun cleatAllTopActivity() {
         for (wrActivity in wrActivities) {
             val activity = wrActivity.get()
             if (activity != null) {
                 activity.finish()
             }
-
-
         }
+    }
 
+    fun exit() {
+        cleatAllTopActivity()
         System.exit(0)
     }
 
