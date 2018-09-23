@@ -41,7 +41,7 @@ abstract open class BaseApplication : Application() {
         wrActivities.remove(wrActivity)
     }
 
-    fun cleatAllTopActivity() {
+    fun clearAllTopActivity() {
         for (wrActivity in wrActivities) {
             val activity = wrActivity.get()
             if (activity != null) {
@@ -51,7 +51,7 @@ abstract open class BaseApplication : Application() {
     }
 
     fun exit() {
-        cleatAllTopActivity()
+        clearAllTopActivity()
         System.exit(0)
     }
 
