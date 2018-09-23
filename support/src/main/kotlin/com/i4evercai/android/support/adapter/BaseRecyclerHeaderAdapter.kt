@@ -28,11 +28,16 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         private val S_TYPE_HEADER = -25555412
     }
 
-    private val mContext: Context
-    private var mIsShowEmptyView = true
     private var mIsShowHeaderView = false
-    private var mEmptyLottieAnimName: String = "support_empty_loading_lottie.json"
-    private var mEmptyMsg: String = ""
+    protected val mContext: Context
+    protected var mIsShowEmptyView = true
+    protected var mLoadingLottieAnimName: String = "support_empty_loading_lottie.json"
+    protected var mLoadingMsg: String = ""
+    protected var mLoadingImageViewResId: Int = 0
+    protected var mEmptyLottieAnimName: String = "support_empty_no_data_lottie.json"
+    protected var mEmptyMsg: String = ""
+    protected var mEmptyImageViewResId: Int = 0
+    protected var mEmptyStatus: Int = BaseRecyclerAdapter.EMPTY_NOTICE_STATUS_NO_DATA
 
     constructor(context: Context) : this(context, true, true)
 
@@ -49,7 +54,12 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = emptyMsg
     }
-
+    constructor(context: Context,showHeaderView: Boolean, @DrawableRes mEmptyImageViewResId: Int, @StringRes emptyMsgRes: Int) : super() {
+        this.mContext = context
+        this.mIsShowHeaderView = showHeaderView
+        this.mEmptyImageViewResId = mEmptyImageViewResId
+        this.mEmptyMsg = context.getString(emptyMsgRes)
+    }
     constructor(context: Context, showHeaderView: Boolean, emptyLottieAnimName: String, @StringRes emptyMsgRes: Int) : super() {
         this.mContext = context
         this.mIsShowHeaderView = showHeaderView
@@ -143,7 +153,11 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
     fun onBindEmptyViewHolder(holder: RecyclerView.ViewHolder) {
         if (holder is BaseRecyclerAdapter.EmptyViewHolder) {
             val emptyViewHolder: BaseRecyclerAdapter.EmptyViewHolder = holder
-            emptyViewHolder.setData(mEmptyLottieAnimName, mEmptyMsg)
+            if (mEmptyStatus == BaseRecyclerAdapter.EMPTY_NOTICE_STATUS_LOADING){
+                emptyViewHolder.setData(mLoadingLottieAnimName, mLoadingImageViewResId,mLoadingMsg)
+            }else{
+                emptyViewHolder.setData(mEmptyLottieAnimName, mEmptyImageViewResId,mEmptyMsg)
+            }
         }
 
     }
