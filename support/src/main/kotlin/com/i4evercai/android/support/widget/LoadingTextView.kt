@@ -1,5 +1,6 @@
 package com.i4evercai.android.support.widget
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.os.Handler
 import android.os.Message
@@ -72,7 +73,9 @@ class LoadingTextView : TextView {
 
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    @TargetApi(21)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
 
     }
 

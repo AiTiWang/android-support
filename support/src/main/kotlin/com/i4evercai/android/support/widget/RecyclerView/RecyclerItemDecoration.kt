@@ -3,13 +3,12 @@ package com.i4evercai.android.support.widget.RecyclerView
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorRes
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-
+import androidx.annotation.ColorRes
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
@@ -79,7 +78,7 @@ open class RecyclerItemDecoration : RecyclerView.ItemDecoration {
 
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
         if (parent.layoutManager != null) {
             if (parent.layoutManager is LinearLayoutManager && parent.layoutManager !is GridLayoutManager) {
@@ -89,7 +88,7 @@ open class RecyclerItemDecoration : RecyclerView.ItemDecoration {
                     drawVertical(c, parent)
                 }
             } else {
-                if (type === 0) {
+                if (type == 0) {
                     drawGrideview(c, parent)
                 } else {
                     drawGrideview1(c, parent)

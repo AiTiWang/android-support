@@ -1,15 +1,14 @@
 package com.i4evercai.android.support.utils
 
-import android.content.Intent
-import android.provider.MediaStore
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.support.v4.content.FileProvider
 import android.os.Build
+import android.os.Bundle
+import android.provider.MediaStore
 import android.webkit.MimeTypeMap
-import com.airbnb.lottie.utils.Utils
+import androidx.core.content.FileProvider
 import java.io.File
 
 
@@ -42,7 +41,7 @@ object IntentUtils {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-            val contentUri = FileProvider.getUriForFile(AppUtils.appContext, authority, file!!)
+            val contentUri = FileProvider.getUriForFile(AppUtils.appContext, authority, file)
             intent.setDataAndType(contentUri, type)
         }
         intent.setDataAndType(Uri.fromFile(file), type)

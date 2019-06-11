@@ -2,11 +2,11 @@ package com.i4evercai.android.support.utils
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.support.annotation.ColorInt
-import android.support.v7.view.menu.ActionMenuItemView
-import android.support.v7.widget.ActionMenuView
-import android.support.v7.widget.Toolbar
 import android.widget.ImageButton
+import androidx.annotation.ColorInt
+import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.appcompat.widget.ActionMenuView
+import androidx.appcompat.widget.Toolbar
 
 /**
  *

@@ -1,8 +1,9 @@
 package com.i4evercai.android.support.widget.RecyclerView
 
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+
 /**
  *
  * @Description: GridSpacingItemDecoration
@@ -25,8 +26,7 @@ class GridSpacingItemDecoration : RecyclerView.ItemDecoration {
 
     }
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-        if (parent != null && outRect != null) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             val position = parent.getChildAdapterPosition(view) - headerNum // item position
 
             if (position >= 0) {
@@ -53,7 +53,6 @@ class GridSpacingItemDecoration : RecyclerView.ItemDecoration {
                 outRect.top = 0
                 outRect.bottom = 0
             }
-        }
 
     }
 }

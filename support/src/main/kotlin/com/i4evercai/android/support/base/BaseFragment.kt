@@ -1,23 +1,16 @@
 package com.i4evercai.android.support.base
 
 import android.app.Activity
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.i4evercai.android.support.widget.LoadingDialog
-import com.trello.rxlifecycle2.LifecycleTransformer
-import com.trello.rxlifecycle2.RxLifecycle
-import io.reactivex.Observable
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -29,7 +22,7 @@ import pub.devrel.easypermissions.EasyPermissions
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, EasyPermissions.PermissionCallbacks {
+abstract class BaseFragment : Fragment(), View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private val STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN"
 
     protected lateinit var mContext: Context
@@ -41,7 +34,6 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     private var isFirstLoad = true  //是否第一次加载完
     private var isInitView = false
-    private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -68,8 +60,8 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         outState!!.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden)
     }
 
-    override fun onAttach(context: Context?) {
-        this.mContext = context!!
+    override fun onAttach(context: Context) {
+        this.mContext = context
         super.onAttach(context)
 
     }
@@ -114,12 +106,12 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
 
     override fun onStart() {
         super.onStart()
-        lifecycleRegistry.markState(Lifecycle.State.STARTED)
+      //  lifecycleRegistry.markState(Lifecycle.State.STARTED)
     }
 
     override fun onResume() {
         super.onResume()
-        lifecycleRegistry.markState(Lifecycle.State.RESUMED)
+       // lifecycleRegistry.markState(Lifecycle.State.RESUMED)
     }
 
     override fun onStop() {
@@ -133,7 +125,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     }
 
     override fun onDestroy() {
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
+     //   lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
         super.onDestroy()
     }
 
@@ -191,7 +183,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
     }
 
     // 权限请求被拒绝
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (perms != null) {
             if (EasyPermissions.somePermissionPermanentlyDenied(activity!!, perms)) {
                 AppSettingsDialog.Builder(this).build().show()
@@ -203,7 +195,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener, LifecycleOwner, 
         activity?.startActivity(intent)
     }
     // 权限请求成功
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
 

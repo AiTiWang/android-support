@@ -1,17 +1,13 @@
 package com.i4evercai.android.support.adapter
 
 import android.content.Context
-import android.content.IntentFilter
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.i4evercai.android.support.R
-import kotlinx.android.synthetic.main.support_item_empty.view.*
 
 /**
  *
@@ -21,7 +17,7 @@ import kotlinx.android.synthetic.main.support_item_empty.view.*
  * @date 2017/9/4 14:39
  * @version V1.0
  */
-abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.RecyclerView.ViewHolder, VH : android.support.v7.widget.RecyclerView.ViewHolder>
+abstract class BaseRecyclerHeaderAdapter<VHH : RecyclerView.ViewHolder, VH : RecyclerView.ViewHolder>
     : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     companion object {
         private val S_TYPE_EMPTY = -25555411
@@ -54,7 +50,7 @@ abstract class BaseRecyclerHeaderAdapter<VHH : android.support.v7.widget.Recycle
         this.mEmptyLottieAnimName = emptyLottieAnimName
         this.mEmptyMsg = emptyMsg
     }
-    constructor(context: Context,showHeaderView: Boolean, @DrawableRes mEmptyImageViewResId: Int, @StringRes emptyMsgRes: Int) : super() {
+    constructor(context: Context, showHeaderView: Boolean, @DrawableRes mEmptyImageViewResId: Int, @StringRes emptyMsgRes: Int) : super() {
         this.mContext = context
         this.mIsShowHeaderView = showHeaderView
         this.mEmptyImageViewResId = mEmptyImageViewResId

@@ -1,20 +1,19 @@
 package com.i4evercai.android.support.base
 
 import android.app.Activity
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.ColorInt
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.i4evercai.android.support.analytics.AnalyticsManager
 import com.i4evercai.android.support.widget.LoadingDialog
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -29,14 +28,14 @@ import java.lang.ref.WeakReference
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissions.PermissionCallbacks, View.OnClickListener {
+abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks, View.OnClickListener {
 
     protected val activity by lazy { this }
     protected val wrActivity by lazy { WeakReference<Activity>(activity) }
     protected lateinit var application: BaseApplication
     protected val context: Context by lazy { this }
     protected val onClickListener by lazy { this }
-    private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
+   // private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
     private var toast: Toast? = null
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(activity) };
 
@@ -45,13 +44,12 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
 
         application = getApplication() as BaseApplication
         application.onActivityCreated(wrActivity)
-        lifecycleRegistry.markState(Lifecycle.State.CREATED)
         // initViews()
     }
 
     override fun onStart() {
         super.onStart()
-        lifecycleRegistry.markState(Lifecycle.State.STARTED)
+      //  lifecycleRegistry.markState(Lifecycle.State.STARTED)
     }
 
     open abstract fun initViews()
@@ -59,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     override fun onResume() {
         super.onResume()
         AnalyticsManager.onResume(this)
-        lifecycleRegistry.markState(Lifecycle.State.RESUMED)
+       // lifecycleRegistry.markState(Lifecycle.State.RESUMED)
     }
 
     override fun onPause() {
@@ -79,7 +77,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
 
     override fun onDestroy() {
 
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
+      //  lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
         AnalyticsManager.onDestroy(this)
         application.onActivityDestroyed(wrActivity)
         super.onDestroy()
@@ -181,7 +179,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     }
 
     // 权限请求被拒绝
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (perms != null) {
             if (EasyPermissions.somePermissionPermanentlyDenied(activity, perms)) {
                 AppSettingsDialog.Builder(this).build().show()
@@ -190,7 +188,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, EasyPermissio
     }
 
     // 权限请求成功
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
 

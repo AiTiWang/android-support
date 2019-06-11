@@ -1,8 +1,7 @@
 package com.i4evercai.support.demo.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.i4evercai.android.support.adapter.BaseRecyclerAdapter
 import com.i4evercai.android.support.base.BaseActivity
 import com.i4evercai.support.demo.R

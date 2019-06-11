@@ -2,8 +2,8 @@ package com.i4evercai.android.support.imageLoader
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.support.annotation.DrawableRes
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 
 /**
  *

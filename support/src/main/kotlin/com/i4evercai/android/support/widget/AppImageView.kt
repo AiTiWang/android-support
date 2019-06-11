@@ -1,11 +1,12 @@
 package com.i4evercai.android.support.widget
 
 import android.content.Context
-import android.support.annotation.DrawableRes
-import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
+import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatImageView
 import com.i4evercai.android.support.R
 import com.i4evercai.android.support.imageLoader.ImageLoaderManager
+
 /**
  *
  * @Description: 图片显示控件，替换ImageView，以防后期替换图片加载控件需要大量更改原来的代码
@@ -14,20 +15,12 @@ import com.i4evercai.android.support.imageLoader.ImageLoaderManager
  * @date 2017/7/13 15:15
  * @version V1.0
  */
-open class AppImageView : AppCompatImageView {
+open class AppImageView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) : AppCompatImageView(context, attrs, defStyleAttr) {
 
-
-    constructor(context: Context) : super(context) {
-
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-
-    }
 
     /*constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
 

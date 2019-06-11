@@ -2,14 +2,14 @@ package com.i4evercai.android.support.widget;
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.i4evercai.android.support.R
 
 
@@ -65,7 +65,12 @@ open class ClearEditText : AppCompatEditText, View.OnTouchListener, View.OnFocus
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (hasFocus) {
-            setClearIconVisible(getText().length > 0);
+            var lenght = 0
+            val text = text
+            if (text!=null){
+                lenght = text.length
+            }
+            setClearIconVisible(lenght > 0);
         } else {
             setClearIconVisible(false);
         }

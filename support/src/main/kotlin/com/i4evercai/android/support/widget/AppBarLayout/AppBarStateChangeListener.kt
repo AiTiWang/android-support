@@ -1,6 +1,7 @@
 package com.i4evercai.android.support.widget.AppBarLayout
 
-import android.support.design.widget.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout
+
 
 /**
  * Created by Fitz on 2017/12/9 0009.

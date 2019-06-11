@@ -1,7 +1,6 @@
 package com.i4evercai.android.support.widget
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
 import android.text.TextUtils
 import android.util.AttributeSet
 

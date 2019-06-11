@@ -1,12 +1,11 @@
 package com.i4evercai.android.support.reactivex
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.i4evercai.android.support.BuildConfig
 import com.i4evercai.android.support.utils.LogUtils
-import com.trello.rxlifecycle2.LifecycleProvider
-import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindUntilEvent
+import com.trello.rxlifecycle3.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -94,7 +93,7 @@ fun Disposable.registerInBus(subscriber: Any) {
 fun <T> Observable<T>.registerInBus(onEventListener: ((event: T) -> Unit),
                                     observeOnScheduler: Scheduler, owner: LifecycleOwner,
                                     subscriber: Any) {
-    this.registerInBus(onEventListener, observeOnScheduler, owner,Lifecycle.Event.ON_DESTROY, subscriber)
+    this.registerInBus(onEventListener, observeOnScheduler, owner, Lifecycle.Event.ON_DESTROY, subscriber)
 }
 
 fun <T> Observable<T>.registerInBus(onEventListener: ((event: T) -> Unit),

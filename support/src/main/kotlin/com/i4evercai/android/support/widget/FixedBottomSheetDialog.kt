@@ -2,10 +2,10 @@ package com.i4evercai.android.support.widget
 
 import android.content.Context
 import android.content.DialogInterface
-import android.support.annotation.StyleRes
-import android.support.design.widget.BottomSheetDialog
-import android.view.ViewGroup
 import android.os.Bundle
+import android.view.ViewGroup
+import androidx.annotation.StyleRes
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.i4evercai.android.support.utils.ScreenUtils
 
 

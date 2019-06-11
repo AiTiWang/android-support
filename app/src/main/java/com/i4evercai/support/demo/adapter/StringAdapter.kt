@@ -1,7 +1,6 @@
 package com.i4evercai.support.demo.adapter
 
 import android.content.Context
-import android.support.annotation.LayoutRes
 import android.view.ViewGroup
 import com.i4evercai.android.support.adapter.BaseRecyclerAdapter
 import com.i4evercai.android.support.widget.RecyclerView.BaseViewHolder
