@@ -22,7 +22,7 @@ import pub.devrel.easypermissions.EasyPermissions
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class BaseFragment : Fragment(), View.OnClickListener, EasyPermissions.PermissionCallbacks {
+abstract class SupportBaseFragment : Fragment(), View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private val STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN"
 
     protected lateinit var mContext: Context

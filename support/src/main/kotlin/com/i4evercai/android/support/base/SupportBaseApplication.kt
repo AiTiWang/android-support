@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference
  * @date 2017/7/8 14:44
  * @version V1.0
  */
-abstract open class BaseApplication : Application() {
+abstract open class SupportBaseApplication : Application() {
     protected val wrActivities = ArrayList<WeakReference<Activity>>()
     override fun onCreate() {
         super.onCreate()

@@ -3,11 +3,11 @@ package com.i4evercai.support.demo.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.i4evercai.android.support.base.BaseActivity
+import com.i4evercai.android.support.base.SupportBaseActivity
 import com.i4evercai.support.demo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : SupportBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

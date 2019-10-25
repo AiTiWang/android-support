@@ -12,8 +12,6 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import com.i4evercai.android.support.analytics.AnalyticsManager
 import com.i4evercai.android.support.widget.LoadingDialog
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -28,11 +26,11 @@ import java.lang.ref.WeakReference
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks, View.OnClickListener {
+abstract class SupportBaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks, View.OnClickListener {
 
     protected val activity by lazy { this }
     protected val wrActivity by lazy { WeakReference<Activity>(activity) }
-    protected lateinit var application: BaseApplication
+    protected lateinit var application: SupportBaseApplication
     protected val context: Context by lazy { this }
     protected val onClickListener by lazy { this }
    // private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
@@ -42,7 +40,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        application = getApplication() as BaseApplication
+        application = getApplication() as SupportBaseApplication
         application.onActivityCreated(wrActivity)
         // initViews()
     }
