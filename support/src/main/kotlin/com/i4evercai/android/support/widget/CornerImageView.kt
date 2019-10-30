@@ -4,8 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Path
 import android.util.AttributeSet
+import com.i4evercai.android.support.R
 
-class CornerImageView @JvmOverloads constructor(
+open class CornerImageView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
@@ -18,30 +19,23 @@ class CornerImageView @JvmOverloads constructor(
 
 
     init {
-        val ATTRS = intArrayOf(android.R.attr.radius,
-                android.R.attr.topLeftRadius, android.R.attr.topRightRadius,
-                android.R.attr.bottomLeftRadius, android.R.attr.bottomRightRadius)
-
-        context.obtainStyledAttributes(attrs, ATTRS).apply {
-            try {
-                val radius = getDimensionPixelSize(0, 0).toFloat()
-                @SuppressWarnings("ResourceType")
-                if (radius > 0) {
-                    topLeftRadius = radius
-                    topRightRadius = radius
-                    bottomRightRadius = radius
-                    bottomLeftRadius = radius
-                } else {
-                    topLeftRadius = getDimensionPixelSize(1, 0).toFloat()
-                    topRightRadius = getDimensionPixelSize(2, 0).toFloat()
-                    bottomLeftRadius = getDimensionPixelSize(3, 0).toFloat()
-                    bottomRightRadius = getDimensionPixelSize(4, 0).toFloat()
-                }
-
-            } catch (e: Exception) {
+        context.obtainStyledAttributes(attrs, R.styleable.CornerImageView).apply {
+            val radius = getDimensionPixelSize(R.styleable.CornerImageView_radius, 0).toFloat()
+            if (radius > 0) {
+                topLeftRadius = radius
+                topRightRadius = radius
+                bottomRightRadius = radius
+                bottomLeftRadius = radius
+            } else {
+                topLeftRadius = getDimensionPixelSize(R.styleable.CornerImageView_topLeftRadius, 0)
+                        .toFloat()
+                topRightRadius = getDimensionPixelSize(R.styleable.CornerImageView_topRightRadius, 0).toFloat()
+                bottomLeftRadius = getDimensionPixelSize(R.styleable.CornerImageView_bottomLeftRadius, 0).toFloat()
+                bottomRightRadius = getDimensionPixelSize(R.styleable.CornerImageView_bottomRightRadius, 0).toFloat()
             }
             recycle()
         }
+
     }
 
     override fun onDraw(canvas: Canvas?) {

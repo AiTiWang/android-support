@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
-import android.widget.RelativeLayout
+import androidx.appcompat.widget.LinearLayoutCompat
 import com.i4evercai.android.support.R
 
 /**
@@ -16,7 +16,7 @@ import com.i4evercai.android.support.R
  * @date 2017/10/18 16:48
  * @version V1.0
  */
-open class RatioLayout : RelativeLayout {
+open class RatioLinearLayout : LinearLayoutCompat {
     private var ratio: Float = 0f
     private val RELATIVE_WIDTH = 0//控件的宽度固定，根据比例求出高度
     private val RELATIVE_HEIGHT = 1//控件的高度固定，根据比例求出宽度

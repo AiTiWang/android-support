@@ -1,40 +1,27 @@
 package com.i4evercai.android.support.widget
 
-
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
-import android.widget.RelativeLayout
 import com.i4evercai.android.support.R
 
-/**
- *
- * @Description: RatioLayout
- * @author Fitz
- * @email FitzPro@qq.com
- * @date 2017/10/18 16:48
- * @version V1.0
- */
-open class RatioLayout : RelativeLayout {
+open class RatioImageView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) : AppImageView(context, attrs, defStyleAttr) {
     private var ratio: Float = 0f
     private val RELATIVE_WIDTH = 0//控件的宽度固定，根据比例求出高度
     private val RELATIVE_HEIGHT = 1//控件的高度固定，根据比例求出宽度
     private var relative = RELATIVE_WIDTH
 
-    constructor(context: Context) : super(context) {
+    init {
 
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0) {
-
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.RatioLayout, defStyleAttr, 0);
-        ratio = typedArray.getFloat(R.styleable.RatioLayout_ratio, -1f);
-        relative = typedArray.getInt(R.styleable.RatioLayout_relative, RELATIVE_WIDTH);
-        typedArray.recycle();
+        context.obtainStyledAttributes(attrs, R.styleable.RatioLayout).apply {
+            ratio = getFloat(R.styleable.RatioLayout_ratio, -1f);
+            relative = getInt(R.styleable.RatioLayout_relative, RELATIVE_WIDTH);
+            recycle()
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -73,7 +60,14 @@ open class RatioLayout : RelativeLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
-
+    fun setRelative(isWidth:Boolean){
+        if (isWidth){
+            relative = RELATIVE_WIDTH
+        }else{
+            relative = RELATIVE_HEIGHT
+        }
+        invalidate()
+    }
     public fun setRatio(ratio: Float) {
         this.ratio = ratio
         invalidate()
