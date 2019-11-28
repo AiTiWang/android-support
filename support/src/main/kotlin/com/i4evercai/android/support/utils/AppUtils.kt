@@ -9,7 +9,6 @@ import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
-import java.math.BigDecimal
 import java.util.*
 
 
@@ -150,10 +149,10 @@ object AppUtils {
 
         }
         if (TextUtils.isEmpty(imei)) {
-            val macIdP = PreferenceUtils.getString(context, "sp_app_uuid", "key_mac_uuid", "")
-            if (TextUtils.isEmpty(macIdP)) {
-                val uuid = UUID.randomUUID().toString().replace("-", "")
-                PreferenceUtils.putString(context, "sp_app_uuid", "key_mac_uuid", uuid)
+            imei = PreferenceUtils.getString(context, "sp_app_uuid", "key_mac_uuid", "")
+            if (TextUtils.isEmpty(imei)) {
+                imei  = UUID.randomUUID().toString().replace("-", "")
+                PreferenceUtils.putString(context, "sp_app_uuid", "key_mac_uuid", imei)
             }
 
 
