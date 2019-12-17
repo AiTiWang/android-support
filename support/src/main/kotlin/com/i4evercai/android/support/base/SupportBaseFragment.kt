@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.i4evercai.android.support.widget.AppOnClickListener
 import com.i4evercai.android.support.widget.LoadingDialog
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -22,7 +23,7 @@ import pub.devrel.easypermissions.EasyPermissions
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class SupportBaseFragment : Fragment(), View.OnClickListener, EasyPermissions.PermissionCallbacks {
+abstract class SupportBaseFragment : Fragment(), AppOnClickListener, EasyPermissions.PermissionCallbacks {
     private val STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN"
 
     protected lateinit var mContext: Context
@@ -199,7 +200,7 @@ abstract class SupportBaseFragment : Fragment(), View.OnClickListener, EasyPermi
 
     }
 
-    override fun onClick(v: View?) {
+    override fun onViewClick(v: View) {
 
     }
 

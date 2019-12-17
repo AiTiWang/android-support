@@ -12,6 +12,7 @@ import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatButton
 import com.i4evercai.android.support.R
 
@@ -129,8 +130,7 @@ class CommonShapeButton @JvmOverloads constructor(
         }
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    private fun setShapeDrawable() {
         // 初始化normal状态
         with(normalGradientDrawable) {
             // 渐变色
@@ -196,6 +196,59 @@ class CommonShapeButton @JvmOverloads constructor(
             }
         } else {
             normalGradientDrawable
+        }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        setShapeDrawable()
+    }
+
+    /**
+     * 设置填充颜色
+     * @param fillColor 颜色
+     */
+    open fun setFillColor(@ColorInt fillColor: Int) {
+        try {
+            if (mFillColor == mPressedColor) {
+                mPressedColor = fillColor
+            }
+            mFillColor = fillColor
+            setShapeDrawable()
+
+            invalidate()
+        } catch (e: Exception) {
+
+        }
+    }
+
+    /**
+     *
+     * @param startColor    开始颜色
+     * @param endColor      结束颜色
+     */
+    open fun setStartAndEndColor(@ColorInt startColor: Int, @ColorInt endColor: Int) {
+        setStartAndEndColor(startColor, endColor, mOrientation)
+    }
+
+    /**
+     *
+     * 设置开始颜色跟结束颜色
+     *
+     * @param startColor    开始颜色
+     * @param endColor      结束颜色
+     * @param orientation   渐变方向   0-GradientDrawable.Orientation.TOP_BOTTOM ，1-GradientDrawable.Orientation.LEFT_RIGHT
+     * 渐变方向
+     */
+    open fun setStartAndEndColor(@ColorInt startColor: Int, @ColorInt endColor: Int, orientation: Int) {
+        try {
+            mStartColor = startColor
+            mEndColor = endColor
+            mOrientation = orientation
+            setShapeDrawable()
+            invalidate()
+        } catch (e: Exception) {
+
         }
     }
 

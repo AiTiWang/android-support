@@ -13,6 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.i4evercai.android.support.analytics.AnalyticsManager
+import com.i4evercai.android.support.widget.AppOnClickListener
 import com.i4evercai.android.support.widget.LoadingDialog
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -26,7 +27,7 @@ import java.lang.ref.WeakReference
  * @date 2017/7/8 14:46
  * @version V1.0
  */
-abstract class SupportBaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks, View.OnClickListener {
+abstract class SupportBaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks, AppOnClickListener {
 
     protected val activity by lazy { this }
     protected val wrActivity by lazy { WeakReference<Activity>(activity) }
@@ -203,7 +204,8 @@ abstract class SupportBaseActivity : AppCompatActivity(), EasyPermissions.Permis
         return true
     }
 
-    override fun onClick(v: View?) {
+    override fun onViewClick(v: View) {
 
     }
+
 }

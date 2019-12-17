@@ -45,6 +45,27 @@ object AppUtils {
     }
 
     /**
+     * 检测程序是否安装
+     *
+     * @param context
+     * @param packageName
+     *
+     * @return
+     */
+    private fun isInstalled(context: Context, packageName: String): Boolean {
+        val manager = context.getPackageManager()
+        //获取所有已安装程序的包信息
+        val installedPackages = manager.getInstalledPackages(0)
+        if (installedPackages != null) {
+            for (info in installedPackages) {
+                if (info.packageName == packageName)
+                    return true
+            }
+        }
+        return false
+    }
+
+    /**
      * 获取应用程序版本名称信息
      *
      * @param context
@@ -64,6 +85,7 @@ object AppUtils {
 
         return null
     }
+
     @JvmStatic
     fun getVersionCode(context: Context): Int {
         try {
@@ -119,6 +141,7 @@ object AppUtils {
         }
         return processName
     }
+
     @JvmStatic
     private fun getPhoneImei(context: Context): String {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
@@ -151,7 +174,7 @@ object AppUtils {
         if (TextUtils.isEmpty(imei)) {
             imei = PreferenceUtils.getString(context, "sp_app_uuid", "key_mac_uuid", "")
             if (TextUtils.isEmpty(imei)) {
-                imei  = UUID.randomUUID().toString().replace("-", "")
+                imei = UUID.randomUUID().toString().replace("-", "")
                 PreferenceUtils.putString(context, "sp_app_uuid", "key_mac_uuid", imei)
             }
 
@@ -159,6 +182,7 @@ object AppUtils {
         }
         return imei
     }
+
     @JvmStatic
     fun restartApp(context: Context) {
         val intent = context.getPackageManager()
